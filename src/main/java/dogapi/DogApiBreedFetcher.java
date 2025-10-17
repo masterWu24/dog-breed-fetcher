@@ -32,7 +32,11 @@ public class DogApiBreedFetcher implements BreedFetcher {
         }
 
         String url = "https://dog.ceo/api/breed/" + breed.trim().toLowerCase(java.util.Locale.ROOT) + "/list";
-        okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("User-Agent", "csc207")
+                .build();
 
         try (okhttp3.Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful() || response.body() == null) {
